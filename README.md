@@ -65,3 +65,16 @@ FILE CREATION LIST:
 * Summary & Notes doc
 
 COMMUNICATION FACILITATED THROUGH TWILIO
+
+***** UTILIZATION
+* Create a Trigger Form
+* Add script to form & replace defualt function with SAR_EVENT script.
+* Update constants with applicable file and directory IDs. 
+* Save script.
+*** CRITICAL - ROSTER DATA must match formatting (To be added to documenation shortly).
+* Set to tigger on form submit.
+
+
+
+***** ROSTER DATA FORMAT
+
