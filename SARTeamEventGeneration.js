@@ -293,6 +293,10 @@ function SARTeamEventGeneration() {
   respondingSheet.getRange("B1").setValue(`CELL`);
   respondingSheet.getRange("B2").setValue(`=IFERROR(INDEX(ROSTER!C:C,MATCH(INDIRECT(ADDRESS(ROW(),3,4)),ROSTER!D:D,0)),"")`);
   respondingSheet.getRange("C1").setValue(`=QUERY(RESPONSES!A:C,"SELECT B,C WHERE C != 'Unavailable'")`);
+  respondingSheet.getRange("E1").setValue(`MEDICAL CERT`);
+  respondingSheet.getRange("E2").setValue(`=IFERROR(INDEX(ROSTER!E:E,MATCH(INDIRECT(ADDRESS(ROW(),3,4)),ROSTER!D:D,0)),"")`);
+  respondingSheet.getRange("F1").setValue(`SPECIAL TEAMS`);
+  respondingSheet.getRange("F2").setValue(`=IFERROR(CONCATENATE(ArrayFormula(INDEX(ROSTER!F:M,MATCH(INDIRECT(ADDRESS(ROW(),3,4)),ROSTER!D:D,0))&" | ")),"")`);
   Logger.log(`UPDATED SHEET WITH RESPONDING QUERY`);
 
   // UPDATE SHEET WITH CODE ORANGE RECALL SHEET
