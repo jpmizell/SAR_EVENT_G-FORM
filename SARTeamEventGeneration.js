@@ -247,12 +247,12 @@ function SARTeamEventGeneration() {
   eventData.getSheetByName(`Copy of CODEORANGE[A]`).setName(`ROSTER`);
   // Add response to roster sheet
   let rosterSheet = eventData.getSheetByName(`ROSTER`);
-  rosterSheet.getRange("N1").setValue(`AVAILABLE RESPONSE`);
-  rosterSheet.getRange("N2:N").setValue(`=IFNA(IF(MATCH(D2,RESPONDING!B:B,0)>0,"YES"),"NO")`);
-  rosterSheet.getRange("O1").setValue(`SIGNED-IN?`);
-  rosterSheet.getRange("O2:O").setValue(`=IFNA(IF(MATCH(D2,STATUS!F:F,0)>0,"YES"),"NO")`);
-  rosterSheet.getRange("P1").setValue(`RECALL?`);
-  rosterSheet.getRange("P2:P").setValue(`=IF(N2="YES","NO",IF(O2="YES","NO","YES"))`);
+  rosterSheet.getRange("O1").setValue(`AVAILABLE RESPONSE`);
+  rosterSheet.getRange("O2:O").setValue(`=IFNA(IF(MATCH(D2,RESPONDING!B:B,0)>0,"YES"),"NO")`);
+  rosterSheet.getRange("P1").setValue(`SIGNED-IN?`);
+  rosterSheet.getRange("P2:P").setValue(`=IFNA(IF(MATCH(D2,STATUS!F:F,0)>0,"YES"),"NO")`);
+  rosterSheet.getRange("Q1").setValue(`RECALL?`);
+  rosterSheet.getRange("Q2:Q").setValue(`=IF(O2="YES","NO",IF(P2="YES","NO","YES"))`);
   Logger.log(`COPIED CODEORANGE ROSTER DATA TO EVENT DATA SHEET`);
 
   // UPDATE SHEET WITH STATUS QUERY
