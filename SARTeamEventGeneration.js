@@ -86,16 +86,6 @@ function SARTeamEventGeneration() {
 // CREATE THE DIRECTORY
     // SET DIRECTORY NAME BASED ON FORM INFORMATION 
     let directoryName = frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType;
-    /** Switch statment for setting specific parentDirectoryId and directoryName by Event type.
-     * switch(frEventType) { // ASSIGN THE DIRECTORY TITLES
-      case "MISSING PERSON": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType; break;
-      case "RECOVERY": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType; break;
-      case "MUTUAL AID": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType; break;
-      case "FIRE EVACUATION": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" "+frEventType; break;
-      case "FLOOD/DEBRIS FLOW EVACUATION": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" "+frEventType; break;
-      case "LAW ENFORCEMENT SUPPORT": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" "+frEventType; break;
-      }
-    */
     Logger.log(`SET DIRECTORY NAME BASED ON FORM INFORMATION`);
   // } // END THE i RESPONSE LOOP 
   Logger.log("DIRECTORY NAME: "+directoryName);
