@@ -10,9 +10,11 @@
  */
 
 function SARTeamEventGeneration() {
-  const formId = ""; // THIS IS OUR TRIGGER FORM
-  const agencyFooter = `Santa Cruz County Search and Rescue\n`;
-
+// DEFINE DOCUMENT & DIRECTORY IDs & OTHER CONSTANTS
+  const formId = ``; // THIS IS OUR TRIGGER FORM                                  <------ ADD FORM ID HERE !!!!!!!!!!!!!!!
+  const rosterId = ``; // SAR ROSTER PRIMARY                                      <------ ADD ROSTER ID HERE !!!!!!!!!!!!!!!
+  const parentDirectoryId=``; // sets all responses to nest under this directory. <------ ADD DIRECTORY ID HERE !!!!!!!!!!!!!!!
+  const agencyFooter = `AGENCY NAME GOES HERE \n`; //                             <------ ADD AGENCY NAME HERE !!!!!!!!!!!!!!!
 // PULL FULL REPORT FROM THE FORM
   let form = FormApp.openById(formId); // RETURNS FORM
   let formResponses = form.getResponses(); // RETURNS FormResponse[]
@@ -82,9 +84,18 @@ function SARTeamEventGeneration() {
   Logger.log(`RETRIEVED DATA FROM FORM`);
 
 // CREATE THE DIRECTORY
-    // SET DIRECTORY NAME BASED ON FORM INFORMATION
-    const parentDirectoryId=""; // sets all responses to nest under the 'MISSIONS' directory. Use the case statement below if alternate directories desired. 
+    // SET DIRECTORY NAME BASED ON FORM INFORMATION 
     let directoryName = frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType;
+    /** Switch statment for setting specific parentDirectoryId and directoryName by Event type.
+     * switch(frEventType) { // ASSIGN THE DIRECTORY TITLES
+      case "MISSING PERSON": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType; break;
+      case "RECOVERY": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType; break;
+      case "MUTUAL AID": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" ("+frMPName+") "+frEventType; break;
+      case "FIRE EVACUATION": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" "+frEventType; break;
+      case "FLOOD/DEBRIS FLOW EVACUATION": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" "+frEventType; break;
+      case "LAW ENFORCEMENT SUPPORT": parentDirectoryId="0AC-Dy6HX_cQ1Uk9PVA"; directoryName=frBriefingDate+" "+frIncidentName+" "+frEventType; break;
+      }
+    */
     Logger.log(`SET DIRECTORY NAME BASED ON FORM INFORMATION`);
   // } // END THE i RESPONSE LOOP 
   Logger.log("DIRECTORY NAME: "+directoryName);
@@ -237,8 +248,6 @@ function SARTeamEventGeneration() {
 
 // SHEET UPDATES *************************************************************
   // COPY CODEORANGE ROSTER DATA TO EVENT DATA SHEET
-  const rosterURL = ``;
-  const rosterId = ``; // SAR ROSTER PRIMARY
   let rosterSource = SpreadsheetApp.openById(rosterId);
   let sheetActiveTeam = rosterSource.getSheetByName(`ACTIVE TEAM`);
   let sheetCodeOrange = rosterSource.getSheetByName(`CODEORANGE[A]`);
@@ -251,9 +260,9 @@ function SARTeamEventGeneration() {
   rosterSheet.getRange("N1").setValue(`AVAILABLE RESPONSE`);
   rosterSheet.getRange("N2:N").setValue(`=IFNA(IF(MATCH(D2,RESPONDING!B:B,0)>0,"YES"),"NO")`);
   rosterSheet.getRange("O1").setValue(`SIGNED-IN?`);
-  rosterSheet.getRange("O2:N").setValue(`=IFNA(IF(MATCH(D2,STATUS!F:F,0)>0,"YES"),"NO")`);
+  rosterSheet.getRange("O2:O").setValue(`=IFNA(IF(MATCH(D2,STATUS!F:F,0)>0,"YES"),"NO")`);
   rosterSheet.getRange("P1").setValue(`RECALL?`);
-  rosterSheet.getRange("P2:N").setValue(`=IF(N2="YES","NO",IF(O2="YES","NO","YES"))`);
+  rosterSheet.getRange("P2:P").setValue(`=IF(N2="YES","NO",IF(O2="YES","NO","YES"))`);
   Logger.log(`COPIED CODEORANGE ROSTER DATA TO EVENT DATA SHEET`);
 
   // UPDATE SHEET WITH STATUS QUERY
@@ -369,7 +378,7 @@ function SARTeamEventGeneration() {
   summaryTable.getCell(10,1).setAttributes(docBoldStyle).setAttributes(docDirectoryURL); 
   Logger.log(`UPDATED SUMMARY DOC WITH ASSET SHEET LINK & DOCUMENT DIRECTORY LINK`);
   
-  summaryBody.appendPageBreak();
+  summaryBody.appendPageBreak().setAttributes(docNoBoldStyle);
   
   // PUT THE QR CODES INTO A TABLE IN SUMMARY DOC
   // CREATE THE ARRAY FOR THE TABLE
