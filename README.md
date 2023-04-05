@@ -1,5 +1,22 @@
 # SAR_EVENT_G-FORM
-Launching a SAR Event using a single Google Form.
+SAR_EVENT_G-FORM is a set of scripts designed to support SAR mission management.
+The script library provides highly specific functionality in the context of SAR mission, preliminary data collection, and long-term SAR-mission data management.
+The scripts rely on a set of pre-existing forms, sheets, directories, and template documents, including the following:
+Required Forms:
+* Event Form
+* Mission Form
+Required Sheets:
+* Team Roster
+* Search Log
+* Attendance Log
+Required Directories:
+* Mission Directory
+* Training Directory
+Required Template Documents:
+* IAP
+
+The required ids for each should be entered into the userConfig.gs script.
+
 
 This is a single script file designed to be added to the trigger-form that contains the following fields:
 * Timestamp
