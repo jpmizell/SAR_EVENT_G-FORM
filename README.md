@@ -17,8 +17,15 @@ Required Template Documents:
 
 The required ids for each should be entered into the userConfig.gs script.
 
+The CODEORANGE_Scripts should be saved as a single script file on drive.
 
-This is a single script file designed to be added to the trigger-form that contains the following fields:
+One of the two functions within the 'missionGenerator.gs' script should be associated with the trigger form (event, or mission).
+The CODEORANGE_Scripts file should be added as a library within the trigger form script file. 
+The applicable missionGenerator.gs script should be executed on form submit.
+
+
+
+The Mission trigger-form that contains the following fields:
 * Timestamp
 * Email Address
 * IS MUTUAL AID?
@@ -37,6 +44,7 @@ This is a single script file designed to be added to the trigger-form that conta
 * INCIDENT DESCRIPTION
 * SARTOPO LINK
 * DEPLOY CODEORANGE (Where 'CODEORANGE' is the name of the home-built broader team communications system project.)
+* CONFIRMATION CODE
 
 It Currently completes the following tasks:
 * PULLED SUMMARY DETAILS FROM FORM FOR FORM & DOCUMENT CREATION
@@ -85,13 +93,123 @@ COMMUNICATION FACILITATED THROUGH TWILIO
 
 ***** UTILIZATION
 * Create a Trigger Form
-* Add script to form & replace defualt function with SAR_EVENT script.
+* Add script to form & replace default function with SAR_EVENT script.
 * Update constants with applicable file and directory IDs. 
 * Save script.
-*** CRITICAL - ROSTER DATA must match formatting (To be added to documenation shortly).
+*** CRITICAL - ROSTER DATA must match formatting (To be added to documentation shortly).
 * Set to tigger on form submit.
 
 
 
-***** ROSTER DATA FORMAT
+***** ROSTER DOC
+'ROSTER' SHEET DATA FIELD LIST
+* FullName
+* LAST, First
+* Rank
+* CallSign
+* LastName
+* FirstName
+* TeamStatus
+* StartDate
+* %Attendance
+* AnnualHours
+* Leave of Absense Date
+* Suspension Date
+* Resignation Date
+* Termination Date
+* Personnel File ID
+* Personnel File
+* DOB
+* DLnumber
+* DLstate
+* DLexp
+* InfoUpdateDate
+* HomePhone
+* WorkPhone
+* CellPhone
+* OtherPhone
+* Carrier
+* SCZSAREmail
+* HomeEmail
+* WorkEmail
+* VoiceCallFirst
+* VoiceCallSecond
+* VoiceCallThird
+* HomeStreet
+* HomeCity
+* HomeState
+* HomeZip
+* WorkStreet
+* WorkCity
+* WorkState
+* WorkZip
+* EmergencyContactName
+* EmergencyContactPhone
+* EmergencyContactCity
+* EmergencyContactRelation
+* Air
+* Hasty
+* K9
+* Medical
+* Mounted
+* MountainBike
+* OHV-ATV
+* Overhead
+* Swiftwater
+* Tech
+* CertSAR
+* CertICS
+* CertCPR
+* CertMedical
+* CertVehicle
+* CertTech
+* CertSwiftwater
+* CertCave/Confined Spaces
+* CertOverhead
+* CertMountainBike
+* CertEquestrian
+* AllCertsCurrent
+* AllCertsExpired
+* ID Card
+* Policy
+* Photo
+* Oath
+* Emer Form
+* DSW
+* IssuedPager
+* IssuedRadio
+* IssuedGPS
+* IssuedKey
+* IssuedBook
+* IssuedSwiftwater
+* IssuedRopeRescue
+* IssuedUniform
+* GenderedSizing
+* Hat/HelmetSize
+* LongSleeveFieldUniformShirtSize
+* ShortSleeveT-ShirtSize
+* BDUPantSize
+* DrySuitSize
+* ShoeSize
+* GloveSize
+* JacketSize
+* BikeJerseySize
+* ContactId
+* Groups
+* Tags
+* CurrentCodeRed
+* CodeRedUpdate
+* CODEORANGE
+* isTL
 
+***** ATTENDANCE DOC
+* 'ALLEVENTS' SHEET DATA FIELD LIST
+** Event Date
+** Event Type
+** Event Name
+** DataSheetID
+** Data Sheet Link
+** YEAR
+** EVENTID
+** COPIED
+** READY TO COPY
