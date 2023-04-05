@@ -1,10 +1,13 @@
-driveFunctions.gs
-
 function createDirectory(name,parentDirectoryId) {
   let parentFolder = DriveApp.getFolderById(parentDirectoryId);
-  let newEventFolder = parentFolder.createFolder(name);
-  let newEventFolderId = newEventFolder.getId();
-  return DriveApp.getFolderById(newEventFolderId);
+  let newDirectory = parentFolder.createFolder(name);
+  let newDirectoryId = newDirectory.getId();
+  const output = {
+    parentFolder:parentFolder,
+    newDirectory:newDirectory,
+    newDirectoryId:newDirectoryId,
+  }
+  return (output); // DriveApp.getFolderById(newDirectoryId); the old output - returns the name of the folder
 }
 function moveFileToDir(file, directory) {
   file.moveTo(directory);
@@ -15,6 +18,15 @@ function createQRCode (URL,imageName,directoryName) {
   let qRImageFile = DriveApp.createFile(qRImage);
   qRImageFile.moveTo(directoryName);
   qRImageFile.setName(`${directoryName} ${imageName}`);
-  Logger.log(`CREATED THE ${imageName} LINK, QR CODE, & MOVED TO ${directoryName} DIRECTORY`);
+  // Logger.log(`CREATED THE ${imageName} LINK, QR CODE, & MOVED TO ${directoryName} DIRECTORY`);
   return qRImage;
 }
+  function createDirectories(parentDirectoryId, directoryName, assetsDirName) {
+    const dir = createDirectory(directoryName,parentDirectoryId);
+    const dirId = dir.newDirectoryId;
+    const assetsDir = createDirectory(assetsDirName,dirId);
+    let directoryURL = dir.newDirectory.getUrl();
+    const assetDirectoryURL = assetsDir.newDirectory.getUrl();
+    const d = {dir:dir.newDirectory,dirUrl:directoryURL, assetsDir:assetsDir.newDirectory, assetDirectoryURL:assetDirectoryURL};
+    return(d);
+  }

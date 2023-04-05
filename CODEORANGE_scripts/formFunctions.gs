@@ -1,5 +1,3 @@
-formFunctions.gs
-
 function addEventForm(theEventDirectory,theFileName,theFormName,setLoginRequired,setCollectEmail,theDataDestination) { // ** CREATE A BLANK RESPONSE FORM
   // CREATE THE FORM IN THE DIRECTORY
   let newForm = FormApp.create(theFileName);
@@ -8,29 +6,23 @@ function addEventForm(theEventDirectory,theFileName,theFormName,setLoginRequired
   newFormFile.moveTo(theEventDirectory);
   newForm.setCollectEmail(setCollectEmail);
   newForm.setRequireLogin(setLoginRequired);
-  Logger.log(`CREATED THE FORM `+theFileName);
-  // UPDATE SPREADSHEET WITH FORM RESPONSES
   newForm.setDestination(FormApp.DestinationType.SPREADSHEET, theDataDestination)
-  
-  // GET & SET THE RESPONSE SHEET NAME
-  function get_form_destination_sheet(form) {
-    let form_id = form.getId();
-    let destination_id = form.getDestinationId();
-    if (destination_id) {
-        let spreadsheet = SpreadsheetApp.openById(destination_id);
-        let matches = spreadsheet.getSheets().filter(function (sheet) {
-            let url = sheet.getFormUrl();
-            return url && url.indexOf(form_id) > -1;
-        });
-        return matches.length > 0 ? matches[0] : null; 
-    }
-    return null;
-  }
   get_form_destination_sheet(newForm).setName(theFormName);
   return newForm;
-  Logger.log(`UPDATED SPREADSHEET WITH THE FORM RESPONSES FROM `+theFormName);
 }
-  
+function get_form_destination_sheet(form) {
+  let form_id = form.getId();
+  let destination_id = form.getDestinationId();
+  if (destination_id) {
+      let spreadsheet = SpreadsheetApp.openById(destination_id);
+      let matches = spreadsheet.getSheets().filter(function (sheet) {
+          let url = sheet.getFormUrl();
+          return url && url.indexOf(form_id) > -1;
+      });
+      return matches.length > 0 ? matches[0] : null; 
+  }
+  return null;
+}
 function getForm(formId) {
   return FormApp.openById(formId);
 }

@@ -1,5 +1,3 @@
-sarConfig.gs
-
 function sarConfig() {  
   let sarConfigurations = {
     searchLogFormulaYear: '=IF(ISBLANK(INDIRECT(ADDRESS(ROW(),2,4))),"?", YEAR(INDIRECT(ADDRESS(ROW(),2,4))))',
@@ -42,15 +40,13 @@ function sarConfig() {
     ],
     availableAssetData: [
       ["A1",`=IFNA(QUERY(STATUS!$A$1:$Y$988,"SELECT A,B,F,G,I,J WHERE D='Sign-In'",-1),"NO RESPONSES YET")`]
-   ],
+    ],
     codeorangeRecallData: [
       ["A1",`=QUERY(ROSTER!1:987,"SELECT B,C WHERE N = 'X' AND O = 'YES'")`],
       ["C1",'LAST MESSAGE SENT'],
       ["C2:C",`=IFNA(VLOOKUP(INDIRECT(ADDRESS(ROW(),1,4)),'CODEORANGE-CALL_LOG'!$A:$C,3,0),"")`]
-   ],
-    codeorangeCallLogData: [
-      
-    ]
+    ],
+    codeorangeCallLogData: []
   }
   return sarConfigurations;
 }
@@ -61,4 +57,103 @@ function sarMessagingConfig(response,availURL) {
       codeOrangeEventMessageConf: `SCZSAR ${response['EVENT TYPE']}: ${response['EVENT TITLE']}. EVENT LINK: ${response['EVENT LINK']}. EVENT DETAILS: *theEventDocLink*.`
   };
   return sarMessagingConfigurations;
+}
+function sarConfig_directoryOutput(response) {
+  const output = {
+    directoryNameEvent: `${response['GENERAL BRIEFING DATE']} ${response['EVENT TYPE']}: ${response['EVENT TITLE']} (${response['CP LOCATION']})`,
+    assetsDirNameEvent: `${response['GENERAL BRIEFING DATE']} ${response['EVENT TYPE']}: ${response['EVENT TITLE']} File Assets`,
+    directoryNameMission: `${response['GENERAL BRIEFING DATE']} ${response['INCIDENT NAME']} (${response['MP NAME']}) ${response['EVENT TYPE']}`,
+    assetsDirNameMission: `${response['GENERAL BRIEFING DATE']} ${response['INCIDENT NAME']} (${response['MP NAME']}) ${response['EVENT TYPE']} File Assets`
+  }
+  return(output); 
+}
+function sarConfig_missionDataOutput(response,d,ds) {
+  const output = {
+    searchLogData: [
+      response['EVENT TYPE'],
+      response.date, 
+      response.time,
+      sarConfig().searchLogFormulaYear,
+      response['SCZ-SO CASE # / CAL OES #'],
+      response['INCIDENT NAME'],
+      response['CP LOCATION'],
+      response['MP NAME'],
+      d.dirURL,
+      response['SARTOPO LINK'],
+      response['MP DOB'],
+      sarConfig().searchLogFormulaMPAge,
+      response['MP SEX'],
+      response['MP Type'],
+      response['MP LKP Date'],
+      response['MP LKP Time'],
+      response['MP LKP'],
+      ,,,,,,,
+      sarConfig().searchLogFormulaLKPLat,
+      sarConfig().searchLogFormulaLKPLong,
+      sarConfig().searchLogFormulaFindLat,
+      sarConfig().searchLogFormulaFindLong,
+      sarConfig().searchLogFormulaLinearTravel,
+      sarConfig().searchLogFormulaDurationOfSearch,
+      ,
+      ds.eventDataId
+      ],
+    responseMissionSummary: [
+      ['INCIDENT NAME',response['INCIDENT NAME']],
+      ['SCZ-SO CASE # / CAL OES #',response['SCZ-SO CASE # / CAL OES #']],
+      ['GENERAL BRIEFING DATE',response['GENERAL BRIEFING DATE']],
+      ['GENERAL BRIEFING TIME',response['GENERAL BRIEFING TIME']],
+      ['EVENT TYPE',response['EVENT TYPE']],
+      ['MP NAME',response['MP NAME']],
+      ['MP SEX',response['MP SEX']],
+      ['MP DOB',response['MP DOB']],
+      ['MP LKP',response['MP LKP']],
+      ['MP Type',response['MP Type']], 
+      ['MP LKP Date',response['MP LKP Date']], 
+      ['MP LKP Time',response['MP LKP Time']],
+      ['RESOURCE NEEDS',stringifyArray(response['RESOURCE NEEDS'])],
+      ['CP LOCATION',response['CP LOCATION']],
+      ['SARTOPO LINK',response['SARTOPO LINK']],
+      ['DEPLOY CODEORANGE',response['DEPLOY CODEORANGE']],
+      [`ASSET MANAGEMENT SHEET`,`DOCUMENT DIRECTORY`],
+    ],
+    dataCodeorangeTeamAttendanceMission: [
+      response['GENERAL BRIEFING DATE'],
+      'MISSION',
+      response['INCIDENT NAME'],
+      ds.eventDataId,
+      sarConfig().attendanceFormulaEventDataSheetURL,
+      sarConfig().attendanceFormulaYEAR,
+      sarConfig().attendanceFormulaEVENTID,
+      sarConfig().attendanceFormulaCOPIED,
+      sarConfig().attendanceFormulaReadyToCopy,
+    ]
+  }
+  return(output); 
+}
+function sarConfig_eventDataOutput(response,d,ds) {
+  const output = {
+    responseEventSummary: [
+      ['EVENT TITLE',response['EVENT TITLE']],
+      ['GENERAL BRIEFING DATE',response['GENERAL BRIEFING DATE']],
+      ['GENERAL BRIEFING TIME',response['GENERAL BRIEFING TIME']],
+      ['EVENT TYPE',response['EVENT TYPE']],
+      ['TEAMS',stringifyArray(response['TEAMS'])],
+      ['CP LOCATION',response['CP LOCATION']],
+      ['EVENT LINK',response['EVENT LINK']],
+      ['DEPLOY CODEORANGE',response['DEPLOY CODEORANGE']],
+      [`ASSET MANAGEMENT SHEET`,`DOCUMENT DIRECTORY`],
+    ],
+    dataCodeorangeTeamAttendanceEvent: [  
+      response['GENERAL BRIEFING DATE'],
+      response['EVENT TYPE'],
+      response['EVENT TITLE'],
+      ds.eventDataId,
+      sarConfig().attendanceFormulaEventDataSheetURL,
+      sarConfig().attendanceFormulaYEAR,
+      sarConfig().attendanceFormulaEVENTID,
+      sarConfig().attendanceFormulaCOPIED,
+      sarConfig().attendanceFormulaReadyToCopy,
+    ]
+  }
+  return(output); 
 }

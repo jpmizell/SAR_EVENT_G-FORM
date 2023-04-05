@@ -1,5 +1,3 @@
-dataFunctions.gs
-
 function stringifyArray(arr) {
   return arr.join('; ');
 }
@@ -15,4 +13,7 @@ function searchArray(searchIn,searchFor) {
         }
       }
     }
+  }
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
   }

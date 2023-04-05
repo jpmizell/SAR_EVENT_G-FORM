@@ -1,5 +1,3 @@
-sheetFunctions.gs
-
 function createSpreadSheet(name, dir) {
   let eventData = SpreadsheetApp.create(name); 
   let eventDataId = eventData.getId();

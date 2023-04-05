@@ -1,5 +1,3 @@
-twilio.gs
-
 // GLOBAL VARIABLES
   var MEMBER = 0;
   var CELL_PHONE = 1;
@@ -12,8 +10,6 @@ function sendSms(memberPhoneNumber,memberName,credentials,theMessage) {
   var twilioPhoneNumber = credentials.PHONE;
   var twilioUrl = 'https://api.twilio.com/2010-04-01/Accounts/' + twilioAccountSID + '/Messages.json';
   var authenticationString = twilioAccountSID + ':' + twilioAuthToken;
-  Logger.log(memberPhoneNumber);
-  Logger.log(theMessage);
   try {
     UrlFetchApp.fetch(twilioUrl, {
       method: 'post',
@@ -31,8 +27,7 @@ function sendSms(memberPhoneNumber,memberName,credentials,theMessage) {
     return 'error: ' + err;
   }
 };
-
- function sendSmsToAll(sheet,message,otherSheet) {
+function sendSmsToAll(sheet,message,otherSheet) {
   var rows = sheet.getDataRange().getValues();
   var headers = rows.shift();
   rows.forEach(function(row) {row[MESSAGE_STATUS] =  sendSms(row[CELL_PHONE],row[MEMBER],twilioCredentials(),message);
